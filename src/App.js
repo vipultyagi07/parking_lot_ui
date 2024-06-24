@@ -1,16 +1,14 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './component/Login';
-import Registration from './component/Registration';
+import logo from "./logo.svg";
+import Login from "./component/Login";
+import Registration from "./component/Registration";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Registration />} />
-      </Routes>
-    </Router>
+
+    <>
+    <Login />
+    </>
   );
 }
 

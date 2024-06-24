@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import '../css/Custom.css'; // Adjust the path as necessary
-import SuccessTemplate from '../templates/SuccessTemplate';
-import RegistrationFormTemplate from '../templates/RegistrationFormTemplate';
+import React, { useState } from "react";
+import "../css/Custom.css"; // Adjust the path as necessary
+import SuccessTemplate from "../templates/SuccessTemplate";
+import RegistrationFormTemplate from "../templates/RegistrationFormTemplate";
 
 function Registration() {
-  const [name, setUsername] = useState('');
-  const [address, setAddress] = useState('');
-  const [mobileNo, setMobileNo] = useState('');
-  const [email, setEmail] = useState('');
-  const [gender, setGender] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [name, setUsername] = useState("");
+  const [address, setAddress] = useState("");
+  const [mobileNo, setMobileNo] = useState("");
+  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [registerSuccessFully, setRegisterSuccessFully] = useState(false);
 
   const handleNameChange = (event) => setUsername(event.target.value);
@@ -33,20 +33,20 @@ function Registration() {
     };
 
     try {
-      const response = await fetch('http://localhost:8081/api/users/sign/up', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8081/api/users/sign/up", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        if (errorData.errorCode === 'USER_IS_ALREADY_PRESENT') {
+        if (errorData.errorCode === "USER_IS_ALREADY_PRESENT") {
           setError(errorData.errorMessage);
         } else {
-          setError('An unknown error occurred.');
+          setError("An unknown error occurred.");
         }
       } else {
         const data = await response.json();
@@ -54,13 +54,13 @@ function Registration() {
         setRegisterSuccessFully(true);
       }
     } catch (error) {
-      setError('An error occurred while registering. Please try again later.');
-      console.error('Registration error:', error);
+      setError("An error occurred while registering. Please try again later.");
+      console.error("Registration error:", error);
     }
   };
 
   const redirectToLogin = () => {
-    window.location.href = '/login';
+    window.location.href = "/login";
   };
 
   return (

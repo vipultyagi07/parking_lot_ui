@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import '../css/Custom.css'; // Adjust the path as necessary
+import React, { useState } from "react";
+import "../css/Custom.css"; // Adjust the path as necessary
 
 function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [error, setError] = useState("");
   const [loginSuccessFull, setLoginSuccessFull] = useState(false);
 
   const handleUsernameChange = (event) => {
@@ -25,10 +25,10 @@ function Login() {
     };
 
     try {
-      const response = await fetch('http://localhost:8081/api/users/sign/in', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8081/api/users/sign/in", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
       });
@@ -36,12 +36,12 @@ function Login() {
       if (!response.ok) {
         const errorData = await response.json();
 
-        if (errorData.errorCode === 'INCORRECT_PASSWORD') {
+        if (errorData.errorCode === "INCORRECT_PASSWORD") {
           setError(errorData.errorMessage);
-        } else if (errorData.errorCode === 'USER_IS_NOT_PRESENT') {
+        } else if (errorData.errorCode === "USER_IS_NOT_PRESENT") {
           setError(errorData.errorMessage);
         } else {
-          setError('An unknown error occurred.');
+          setError("An unknown error occurred.");
         }
       } else {
         const data = await response.json();
@@ -49,19 +49,24 @@ function Login() {
         setLoginSuccessFull(true);
       }
     } catch (error) {
-      console.error('There has been a problem with your fetch operation:', error);
-      setError('An error occurred during the fetch operation.');
+      console.error(
+        "There has been a problem with your fetch operation:",
+        error
+      );
+      setError("An error occurred during the fetch operation.");
     }
   };
 
   return (
     <div>
       {loginSuccessFull ? (
-        ''
+        ""
       ) : (
         <div className="main">
           <h1>Parking Lot</h1>
-          {error && <div style={{ color: 'red', margin: '10px' }}>{error}</div>}
+          {error && (
+            <div style={{ color: "red", margin: "10px" }}> {error} </div>
+          )}
           <h3>Enter your login credentials</h3>
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">
@@ -95,9 +100,10 @@ function Login() {
             </div>
           </form>
           <p>
-            <Link to="/register" style={{ textDecoration: 'none' }}>
+            {" "}
+            <a href="#" style={{ textDecoration: "none" }}>
               Not registered?
-            </Link>
+            </a>
           </p>
         </div>
       )}
