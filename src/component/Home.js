@@ -1,9 +1,16 @@
-import React, { useState } from "react";
-import "../css/Custom.css"; // Adjust the path as necessary
-import { Link } from "react-router-dom";
+import React from 'react'
+import Footer from './Footer'
+import Content from './Content'
+import Header from './Header'
 
-
-function Home(){
-
-    
+function Home() {
+  return (
+    <div>
+      <Header/>
+      <Content/>
+      <Footer/>
+    </div>
+  )
 }
+
+export default Home

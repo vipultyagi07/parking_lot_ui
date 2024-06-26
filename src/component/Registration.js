@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../css/Custom.css"; // Adjust the path as necessary
 import SuccessTemplate from "../templates/SuccessTemplate";
 import RegistrationFormTemplate from "../templates/RegistrationFormTemplate";
 

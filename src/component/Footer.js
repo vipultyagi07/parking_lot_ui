@@ -1,36 +1,56 @@
-import React, { useState } from "react";
-import "../css/Custom.css"; // Adjust the path as necessary
-import { Link } from "react-router-dom";
+import React from 'react';
+import { ReactComponent as FacebookIcon } from './facebook.svg';
+import { ReactComponent as TwitterIcon } from './twitter.svg';
+import { ReactComponent as InstagramIcon } from './instagram.svg';
+import './Footer.css'; // Import your CSS file for footer styling
 
-const Footer = () => {
-    return (
-        <footer>
-            <div className="footer-content">
-                <div className="footer-section about">
-                    <h3>ParkingLotName</h3>
-                    <p>Providing the best parking solutions for you.</p>
-                </div>
-                <div className="footer-section links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#login">Login</a></li>
-                    </ul>
-                </div>
-                <div className="footer-section contact">
-                    <h4>Contact Us</h4>
-                    <p>Email: info@parkinglotname.com</p>
-                    <p>Phone: +123-456-7890</p>
-                </div>
-            </div>
-            <div className="footer-bottom">
-                <p>&copy; {new Date().getFullYear()} ParkingLotName. All rights reserved.</p>
-            </div>
-        </footer>
-    );
-};
+function Footer() {
+  return (
+    <footer>
+      <div className="footer-container">
+        <div className="quick-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/login">Login</a></li>
+          </ul>
+        </div>
+        <div className="social-media">
+          <h3>Follow Us</h3>
+          <ul>
+            <li>
+              <a href="/">
+                <FacebookIcon className="social-icon" />
+                <span>Facebook</span>
+              </a>
+            </li>
+            <li>
+              <a href="/">
+                <TwitterIcon className="social-icon" />
+                <span>Twitter</span>
+              </a>
+            </li>
+            <li>
+              <a href="/">
+                <InstagramIcon className="social-icon" />
+                <span>Instagram</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="legal">
+          <p>© 2024 ParkingLotName. All Rights Reserved.</p>
+          <ul>
+            <li><a href="/">Privacy Policy</a></li>
+            <li><a href="/">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  );
+}
 
 export default Footer;

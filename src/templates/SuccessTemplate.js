@@ -1,5 +1,5 @@
 import React from 'react';
-import "../css/Custom.css"; // Adjust the path as necessary
+// import "../css/Custom.css"; // Adjust the path as necessary
 
 
 const SuccessTemplate = ({ name, redirectToLogin }) => (

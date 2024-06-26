@@ -1,5 +1,5 @@
 import React from 'react';
-import "../css/Custom.css"; // Adjust the path as necessary
+// import "../css/Custom.css"; // Adjust the path as necessary
 
 const RegistrationForm = ({
   name,
@@ -107,7 +107,7 @@ const RegistrationForm = ({
       </div>
     </form>
     <p>
-      <a href="#" style={{ textDecoration: "none" }}>
+      <a href="/" style={{ textDecoration: "none" }}>
         SignIn here.
       </a>
     </p>
