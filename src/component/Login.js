@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "../css/Custom.css"; // Adjust the path as necessary
+import "../Css/Custom.css"; // Adjust the path as necessary
+import { Link } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -101,9 +102,9 @@ function Login() {
           </form>
           <p>
             {" "}
-            <a href="#" style={{ textDecoration: "none" }}>
+            <Link to="/registration" style={{ textDecoration: "none" }}>
               Not registered?
-            </a>
+            </Link>
           </p>
         </div>
       )}
