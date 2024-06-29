@@ -7,7 +7,7 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
-  const [loginSuccessFull, setLoginSuccessFull] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -47,7 +47,7 @@ function Login() {
       } else {
         const data = await response.json();
         console.log(data);
-        setLoginSuccessFull(true);
+        setSuccess(true);
       }
     } catch (error) {
       console.error(
@@ -60,7 +60,7 @@ function Login() {
 
   return (
     <div>
-      {loginSuccessFull ? (
+      {success ? (
         ""
       ) : (
         <div className="main">
@@ -101,9 +101,14 @@ function Login() {
             </div>
           </form>
           <p>
-            {" "}
-            <Link to="/registration" style={{ textDecoration: "none" }}>
+            <Link
+              to="/registration"
+              style={{ textDecoration: "none", marginRight: "10px" }}
+            >
               Not registered?
+            </Link>
+            <Link to="/sendOtp" style={{ textDecoration: "none" }}>
+              Forgot-Password
             </Link>
           </p>
         </div>
