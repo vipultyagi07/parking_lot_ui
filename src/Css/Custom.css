@@ -1,6 +1,18 @@
 .main {
     position: fixed;
-    top:17%;
+    top:15%;
+    left: 35%;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+    transition: transform 0.2s;
+    width: 500px;
+    text-align: center;
+}
+.main1{
+    position: fixed;
+    top:10%;
     left: 35%;
     background-color: #fff;
     border-radius: 15px;

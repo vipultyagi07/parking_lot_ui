@@ -1,5 +1,5 @@
 import React from 'react';
-// import "../css/Custom.css"; // Adjust the path as necessary
+import "../Css/Custom.css"; // Adjust the path as necessary
 
 const RegistrationForm = ({
   name,
@@ -17,7 +17,7 @@ const RegistrationForm = ({
   handlePasswordChange,
   handleRegisterSubmit,
 }) => (
-  <div className="main">
+  <div className="main1">
     <h1>Parking Lot Registration</h1>
     {error && <div style={{color:'red', margin: '10px'}}> {error} </div>}
     <h3>Enter your registration details</h3>
