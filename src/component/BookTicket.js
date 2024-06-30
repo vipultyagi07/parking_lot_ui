@@ -40,16 +40,14 @@ function BookTicket() {
       console.log("Ticket generated:", response.data);
       // You can handle the response here (e.g., show a success message)
     } catch (error) {
-        if (error.response.data.errorCode === 'PARKING_NOT_AVAILABLE') {
-            setError(error.response.data.errorMessage);
-          }
-          if (error.response.data === 404) {
-            setError(error.response.data.errorMessage);
-          }
-          else{
-            setError(error.message);
-
-          }
+      if (error.response.data.errorCode === "PARKING_NOT_AVAILABLE") {
+        setError(error.response.data.errorMessage);
+      }
+      if (error.response.data === 404) {
+        setError(error.response.data.errorMessage);
+      } else {
+        setError(error.message);
+      }
       console.error("Error generating ticket:", error);
       // Handle error (e.g., show an error message)
     }

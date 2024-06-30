@@ -64,7 +64,8 @@ function VerifyOtp() {
         {error && <div className="error-message">{error}</div>}
         {showBanner && (
           <div style={{ color: "green", margin: "10px" }}>
-            OTP verified successfully. Redirecting you to the password reset page...
+            OTP verified successfully. Redirecting you to the password reset
+            page...
           </div>
         )}
         <h3>Enter OTP</h3>
