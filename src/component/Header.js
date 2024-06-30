@@ -1,5 +1,7 @@
 import React from 'react'
 import './Footer.css'
+import { Link, useNavigate } from "react-router-dom";
+
 
 function Header() {
   return (
@@ -8,11 +10,10 @@ function Header() {
         <div className="logo">ParkingLotName</div>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
+                <li><Link to="/Home">Home</Link></li>
+                <li><a href="#how-it-works">How it work!</a></li>
                 <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#login" class="cta">Login</a></li>
+                <li><Link to="/" class="cta">Logout</Link></li>
             </ul>
         </nav>
     </header>
