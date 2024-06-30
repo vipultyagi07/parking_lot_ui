@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../Css/Custom.css"; // Adjust the path as necessary
-
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -9,6 +8,7 @@ function Login() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false); // State for loading indicator
+  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -53,11 +53,15 @@ function Login() {
         const data = await response.json();
         console.log(data);
         setSuccess(true);
+        navigate("/Home");
       }
     } catch (error) {
       setLoading(false); // Stop loading indicator on error
 
-      console.error("There has been a problem with your fetch operation:", error);
+      console.error(
+        "There has been a problem with your fetch operation:",
+        error
+      );
       setError("An error occurred during the fetch operation.");
     }
   };
@@ -69,7 +73,9 @@ function Login() {
       ) : (
         <div className="main">
           <h1>Parking Lot</h1>
-          {error && <div style={{ color: "red", margin: "10px" }}> {error} </div>}
+          {error && (
+            <div style={{ color: "red", margin: "10px" }}> {error} </div>
+          )}
           <h3>Enter your login credentials</h3>
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">
@@ -105,7 +111,10 @@ function Login() {
             </div>
           </form>
           <p>
-            <Link to="/registration" style={{ textDecoration: "none", marginRight: "10px" }}>
+            <Link
+              to="/registration"
+              style={{ textDecoration: "none", marginRight: "10px" }}
+            >
               Not registered?
             </Link>
             <Link to="/sendOtp" style={{ textDecoration: "none" }}>

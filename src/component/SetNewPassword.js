@@ -58,7 +58,7 @@ function SetNewPassword() {
         setTimeout(() => {
           setShowBanner(false);
           navigate("/");
-        }, 5000); // Hide banner after 5 seconds and navigate to login page
+        }, 2000); // Hide banner after 5 seconds and navigate to login page
       } else {
         setError("An unknown error occurred.");
       }
