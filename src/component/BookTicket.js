@@ -15,6 +15,45 @@ function BookTicket() {
     totalSpot: 0,
     freeSpot: 0,
   });
+  const [error, setError] = useState("");
+
+  // Function to handle form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const vehicleNumber = event.target.elements["vehicle-number"].value;
+    const vehicleType = event.target.elements["vehicle-type"].value;
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8081/api/entrance/generate/ticket",
+        {
+          vehicleNo: vehicleNumber,
+          vehicleType: vehicleType.toUpperCase(),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Ticket generated:", response.data);
+      // You can handle the response here (e.g., show a success message)
+    } catch (error) {
+        if (error.response.data.errorCode === 'PARKING_NOT_AVAILABLE') {
+            setError(error.response.data.errorMessage);
+          }
+          if (error.response.data === 404) {
+            setError(error.response.data.errorMessage);
+          }
+          else{
+            setError(error.message);
+
+          }
+      console.error("Error generating ticket:", error);
+      // Handle error (e.g., show an error message)
+    }
+  };
 
   useEffect(() => {
     const fetchTwoWheelerData = async () => {
@@ -69,12 +108,21 @@ function BookTicket() {
                   <Ticket className="social-icon" />
                 </a>
                 <h3>Generate Ticket</h3>
-                <form id="ticket-form">
+                {error && (
+                  <div style={{ color: "red", margin: "10px" }}> {error} </div>
+                )}
+                <form id="ticket-form" onSubmit={handleSubmit}>
                   <label htmlFor="vehicle-type">Select Vehicle Type:</label>
                   <select id="vehicle-type" name="vehicle-type">
-                    <option value="2wheeler">2 Wheeler</option>
-                    <option value="4wheeler">4 Wheeler</option>
+                    <option value="TWO_WHEELER">2 Wheeler</option>
+                    <option value="FOUR_WHEELER">4 Wheeler</option>
                   </select>
+                  <label htmlFor="vehicle-number">Vehicle Number:</label>
+                  <input
+                    type="text"
+                    id="vehicle-number"
+                    name="vehicle-number"
+                  />
                   <button type="submit" className="cta">
                     Proceed
                   </button>
