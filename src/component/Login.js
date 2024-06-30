@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import "../Css/Custom.css"; // Adjust the path as necessary
 import { Link } from "react-router-dom";
+import "../Css/Custom.css"; // Adjust the path as necessary
+
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false); // State for loading indicator
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -26,6 +27,8 @@ function Login() {
     };
 
     try {
+      setLoading(true); // Start loading indicator
+
       const response = await fetch("http://localhost:8081/api/users/sign/in", {
         method: "POST",
         headers: {
@@ -33,6 +36,8 @@ function Login() {
         },
         body: JSON.stringify(requestData),
       });
+
+      setLoading(false); // Stop loading indicator
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -50,10 +55,9 @@ function Login() {
         setSuccess(true);
       }
     } catch (error) {
-      console.error(
-        "There has been a problem with your fetch operation:",
-        error
-      );
+      setLoading(false); // Stop loading indicator on error
+
+      console.error("There has been a problem with your fetch operation:", error);
       setError("An error occurred during the fetch operation.");
     }
   };
@@ -65,9 +69,7 @@ function Login() {
       ) : (
         <div className="main">
           <h1>Parking Lot</h1>
-          {error && (
-            <div style={{ color: "red", margin: "10px" }}> {error} </div>
-          )}
+          {error && <div style={{ color: "red", margin: "10px" }}> {error} </div>}
           <h3>Enter your login credentials</h3>
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">
@@ -97,18 +99,17 @@ function Login() {
             </label>
 
             <div className="wrap">
-              <button type="submit">Submit</button>
+              <button type="submit" disabled={loading}>
+                {loading ? "Loading..." : "Submit"}
+              </button>
             </div>
           </form>
           <p>
-            <Link
-              to="/registration"
-              style={{ textDecoration: "none", marginRight: "10px" }}
-            >
+            <Link to="/registration" style={{ textDecoration: "none", marginRight: "10px" }}>
               Not registered?
             </Link>
             <Link to="/sendOtp" style={{ textDecoration: "none" }}>
-              Forgot-Password
+              Forgot Password
             </Link>
           </p>
         </div>

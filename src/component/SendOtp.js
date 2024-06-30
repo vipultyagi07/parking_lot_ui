@@ -6,6 +6,7 @@ function SendOtp() {
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const [loginSuccessFull, setLoginSuccessFull] = useState(false);
+  const [loading, setLoading] = useState(false); // State for loading indicator
   const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
@@ -17,6 +18,8 @@ function SendOtp() {
     const toEmail = username;
 
     try {
+      setLoading(true); // Start loading indicator
+
       const response = await axios.post(
         `http://localhost:8081/api/users/forgot-password`,
         null,
@@ -26,6 +29,8 @@ function SendOtp() {
         }
       );
 
+      setLoading(false); // Stop loading indicator
+
       if (response.status === 200) {
         setLoginSuccessFull(true);
         navigate(`/verifyOtp?email=${encodeURIComponent(toEmail)}`); // Pass email as query parameter
@@ -33,6 +38,8 @@ function SendOtp() {
         setError("An unknown error occurred.");
       }
     } catch (error) {
+      setLoading(false); // Stop loading indicator on error
+
       if (error.response && error.response.status === 404) {
         setError(
           error.response.data.errorMessage || "An unknown error occurred."
@@ -66,14 +73,20 @@ function SendOtp() {
               />
             </label>
             <div className="wrap">
-              <button type="submit">Submit</button>
+              <button type="submit" disabled={loading}>
+                {loading ? "Loading..." : "Submit"}
+              </button>
             </div>
           </form>
-          <p>
-            <Link to="/registration" style={{ textDecoration: "none" }}>
-              Login
-            </Link>
-          </p>
+          <Link
+            to="/registration"
+            style={{ textDecoration: "none", marginRight: "10px" }}
+          >
+            Not registered?
+          </Link>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            Login
+          </Link>
         </div>
       )}
     </div>

@@ -108,7 +108,7 @@ const RegistrationForm = ({
     </form>
     <p>
       <a href="/" style={{ textDecoration: "none" }}>
-        SignIn here.
+        Login
       </a>
     </p>
   </div>
