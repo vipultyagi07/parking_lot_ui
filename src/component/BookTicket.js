@@ -45,9 +45,7 @@ function BookTicket() {
       }
       if (error.response.data === 404) {
         setError(error.response.data.errorMessage);
-      } else {
-        setError(error.message);
-      }
+      } 
       console.error("Error generating ticket:", error);
       // Handle error (e.g., show an error message)
     }
