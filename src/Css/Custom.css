@@ -1,6 +1,6 @@
 .main {
     position: fixed;
-    top:15%;
+    top: 15%;
     left: 35%;
     background-color: #fff;
     border-radius: 15px;
@@ -10,9 +10,10 @@
     width: 500px;
     text-align: center;
 }
-.main1{
+
+.main1 {
     position: fixed;
-    top:4%;
+    top: 4%;
     left: 35%;
     background-color: #fff;
     border-radius: 15px;
@@ -313,6 +314,7 @@ header nav ul li .cta:hover {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+
     .features-container,
     .steps-container,
     .pricing-container {
@@ -554,5 +556,61 @@ footer {
     .legal {
         margin-right: 0;
         margin-bottom: 2em;
+    }
+}
+
+/* live ticket component css */
+.parking-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-height: 10px;
+    overflow: auto;
+}
+.parking-table th,
+.parking-table td {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+.parking-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+#live-main1 {
+    background-color: #6aa0c7;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.table-container {
+    overflow-y: auto;
+    height: calc(100% - 60px); /* Adjusting height to fit within the container */
+    width: 100%;
+}
+
+#live-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    width: 80%;
+    max-width: 1200px;
+    margin: 1% auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; /* Optional: adds rounded corners */
+    height: 500px;
+    margin-bottom: 10%;
+}
+
+@media (max-width: 768px) {
+    #live-main {
+        width: 90%;
+    }
+    .table-container{
+        height: calc(100%-40px);
     }
 }

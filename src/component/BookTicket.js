@@ -5,6 +5,7 @@ import Header from "./Header";
 import { ReactComponent as Motorcycle } from "./twowheeler.svg";
 import { ReactComponent as Fourwheeler } from "./fourwheeler.svg";
 import { ReactComponent as Ticket } from "./ticket.svg";
+import { Link } from "react-router-dom";
 
 function BookTicket() {
   const [twoWheelerData, setTwoWheelerData] = useState({
@@ -148,7 +149,7 @@ function BookTicket() {
                 <h3>Live Ticket See</h3>
                 <p>Total Live Tickets: 100</p>
                 <br />
-                <button className="cta">View</button>
+                <Link to="/LiveTicket" className="cta">View</Link>
               </div>
               <div className="card">
                 <h3>Total Generated Tickets</h3>
