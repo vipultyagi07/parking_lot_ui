@@ -5,7 +5,6 @@ import axios from "axios";
 function SendOtp() {
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
-  const [loginSuccessFull, setLoginSuccessFull] = useState(false);
   const [loading, setLoading] = useState(false); // State for loading indicator
   const navigate = useNavigate();
 
@@ -32,7 +31,6 @@ function SendOtp() {
       setLoading(false); // Stop loading indicator
 
       if (response.status === 200) {
-        setLoginSuccessFull(true);
         navigate(`/verifyOtp?email=${encodeURIComponent(toEmail)}`); // Pass email as query parameter
       } else {
         setError("An unknown error occurred.");
@@ -53,42 +51,38 @@ function SendOtp() {
 
   return (
     <div>
-      {loginSuccessFull ? (
-        ""
-      ) : (
-        <div className="main">
-          <h1>Parking Lot</h1>
-          {error && <div style={{ color: "red", margin: "10px" }}>{error}</div>}
-          <h3>Enter your registered email</h3>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">
-              <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Enter your email"
-                value={username}
-                onChange={handleUsernameChange}
-                required
-              />
-            </label>
-            <div className="wrap">
-              <button type="submit" disabled={loading}>
-                {loading ? "Loading..." : "Submit"}
-              </button>
-            </div>
-          </form>
-          <Link
-            to="/registration"
-            style={{ textDecoration: "none", marginRight: "10px" }}
-          >
-            Not registered?
-          </Link>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            Login
-          </Link>
-        </div>
-      )}
+      <div className="main">
+        <h1>Parking Lot</h1>
+        {error && <div style={{ color: "red", margin: "10px" }}>{error}</div>}
+        <h3>Enter your registered email</h3>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter your email"
+              value={username}
+              onChange={handleUsernameChange}
+              required
+            />
+          </label>
+          <div className="wrap">
+            <button type="submit" disabled={loading}>
+              {loading ? "Loading..." : "Submit"}
+            </button>
+          </div>
+        </form>
+        <Link
+          to="/registration"
+          style={{ textDecoration: "none", marginRight: "10px" }}
+        >
+          Not registered?
+        </Link>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          Login
+        </Link>
+      </div>
     </div>
   );
 }

@@ -23,7 +23,7 @@ function App() {
         <Route path="/VerifyOtp" element={<VerifyOtp />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/setNewPassword" element={<SetNewPassword />} />
-        <Route path="/LiveTicket" element={<LiveTicket/>} />
+        <Route path="/LiveTicket" element={<LiveTicket />} />
       </Routes>
     </BrowserRouter>
   );

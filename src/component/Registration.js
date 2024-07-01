@@ -59,7 +59,7 @@ function Registration() {
   };
 
   const redirectToLogin = () => {
-    window.location.href = "/login";
+    window.location.href = "/";
   };
 
   return (

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Slider from "react-slick";
 import Footer from "./Footer";
 import Header from "./Header";
 import { ReactComponent as Motorcycle } from "./twowheeler.svg";
 import { ReactComponent as Fourwheeler } from "./fourwheeler.svg";
 import { ReactComponent as Ticket } from "./ticket.svg";
 import { Link } from "react-router-dom";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { BASE_URL } from "../component/api";
 
 function BookTicket() {
   const [twoWheelerData, setTwoWheelerData] = useState({
@@ -17,6 +21,7 @@ function BookTicket() {
     freeSpot: 0,
   });
   const [error, setError] = useState("");
+  const [howItWorksData, setHowItWorksData] = useState([]);
 
   // Function to handle form submission
   const handleSubmit = async (event) => {
@@ -46,8 +51,6 @@ function BookTicket() {
       }
       if (error.response.data === 404) {
         setError(error.response.data.errorMessage);
-      } else {
-        setError(error.message);
       }
       console.error("Error generating ticket:", error);
       // Handle error (e.g., show an error message)
@@ -80,6 +83,32 @@ function BookTicket() {
     fetchTwoWheelerData();
     fetchFourWheelerData();
   }, []);
+
+  useEffect(() => {
+    // Simulate fetching how it works data (replace with actual API call)
+    const fetchData = async () => {
+      try {
+        // Replace with actual endpoint to fetch your JSON data
+        const response = await axios.get(`${BASE_URL}/products`);
+        setHowItWorksData(response.data);
+      } catch (error) {
+        console.error("Error fetching how it works data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    arrows: true,
+  };
 
   return (
     <div>
@@ -149,7 +178,9 @@ function BookTicket() {
                 <h3>Live Ticket See</h3>
                 <p>Total Live Tickets: 100</p>
                 <br />
-                <Link to="/LiveTicket" className="cta">View</Link>
+                <Link to="/LiveTicket" className="cta">
+                  View
+                </Link>
               </div>
               <div className="card">
                 <h3>Total Generated Tickets</h3>
@@ -189,28 +220,17 @@ function BookTicket() {
           </section>
           <section id="how-it-works">
             <h2>How It Works</h2>
-            <div className="steps-container">
-              <div className="step">
-                <img src="/assets/login.jpg" alt="Sign Up" />
-                <h3>Sign Up</h3>
-                <p>Create your account in seconds.</p>
-              </div>
-              <div className="step">
-                <img src="/assets/book.jpg" alt="Book a Spot" />
-                <h3>Book a Spot</h3>
-                <p>Choose your spot from available options.</p>
-              </div>
-              <div className="step">
-                <img src="/assets/parking.jpg" alt="Park Easily" />
-                <h3>Park Easily</h3>
-                <p>Park your vehicle and enjoy a worry-free experience.</p>
-              </div>
-              <div className="step">
-                <img src="/assets/payment.jpg" alt="Make Payment" />
-                <h3>Make Payment</h3>
-                <p>Securely pay for your spot online.</p>
-              </div>
-            </div>
+            <Slider {...settings}>
+              {howItWorksData.map((item) => (
+                <div key={item.id} className="step">
+                  <img src={item.image} alt={item.title} />
+                  <h3>{item.title}</h3>
+                  <p>Category: {item.category}</p>
+                  <p>{item.description}</p>
+                  <p>{item.description}</p>
+                </div>
+              ))}
+            </Slider>
           </section>
         </div>
       </div>
