@@ -9,7 +9,7 @@ import SendOtp from "./component/SendOtp";
 import VerifyOtp from "./component/VerifyOtp";
 import SetNewPassword from "./component/SetNewPassword";
 import LiveTicket from "./component/LiveTicket";
-// import LiveTicket from "./component/LiveTicket";
+import ItemDetail from "./component/ItemDetail";
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/BookTicket" element={<BookTicket />} />
+        <Route path="/products/:id" element={<ItemDetail />} />
         <Route path="/sendOtp" element={<SendOtp />} />
         <Route path="/VerifyOtp" element={<VerifyOtp />} />
         <Route path="/registration" element={<Registration />} />

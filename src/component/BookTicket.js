@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { BASE_URL } from "../component/api";
+import { useNavigate } from "react-router-dom";
 
 function BookTicket() {
   const [twoWheelerData, setTwoWheelerData] = useState({
@@ -22,6 +23,7 @@ function BookTicket() {
   });
   const [error, setError] = useState("");
   const [howItWorksData, setHowItWorksData] = useState([]);
+  const navigate = useNavigate();
 
   // Function to handle form submission
   const handleSubmit = async (event) => {
@@ -90,6 +92,8 @@ function BookTicket() {
       try {
         // Replace with actual endpoint to fetch your JSON data
         const response = await axios.get(`${BASE_URL}/products`);
+        console.log("Fetched data:", response.data); // Add this line
+
         setHowItWorksData(response.data);
       } catch (error) {
         console.error("Error fetching how it works data:", error);
@@ -106,8 +110,12 @@ function BookTicket() {
     slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 1000,
     arrows: true,
+  };
+
+  const handleCardClick = (id) => {
+    navigate(`/products/${id}`);
   };
 
   return (
@@ -221,13 +229,16 @@ function BookTicket() {
           <section id="how-it-works">
             <h2>How It Works</h2>
             <Slider {...settings}>
-              {howItWorksData.map((item) => (
-                <div key={item.id} className="step">
-                  <img src={item.image} alt={item.title} />
-                  <h3>{item.title}</h3>
-                  <p>Category: {item.category}</p>
-                  <p>{item.description}</p>
-                  <p>{item.description}</p>
+              {howItWorksData.map((products) => (
+                <div
+                  key={products.id}
+                  className="step"
+                  onClick={() => handleCardClick(products.id)}
+                >
+                  <img src={products.image} alt={products.title} />
+                  <h3>{products.title}</h3>
+                  <p>Category: {products.category}</p>
+                  <p>{products.description.slice(0, 100)}...</p>{" "}
                 </div>
               ))}
             </Slider>
