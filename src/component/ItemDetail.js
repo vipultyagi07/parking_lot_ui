@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../component/api";
 import Header from "./Header";
@@ -9,12 +9,42 @@ import Star from "./StarRating";
 function ItemDetail() {
   const { id } = useParams();
   const [itemData, setItemData] = useState(null);
+  const { title } = useParams();
+  const navigate = useNavigate();
 
+  //   useEffect(() => {
+  //     const fetchItemData = async () => {
+  //       try {
+  //         const response = await axios.get(`${BASE_URL}/products/${id}`);
+  //         setItemData(response.data);
+  //       } catch (error) {
+  //         console.error("Error fetching item data:", error);
+  //       }
+  //     };
   useEffect(() => {
     const fetchItemData = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/products/${id}`);
-        setItemData(response.data);
+        const response = await axios.get(`${BASE_URL}/products`);
+        const products = response.data;
+        const product = products.find(
+          (product) =>
+            product.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") ===
+            title.toLowerCase()
+        );
+        if (product) {
+          setItemData(product);
+          if (
+            title !== product.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")
+          ) {
+            navigate(
+              `/products/${product.title
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")}`
+            );
+          }
+        } else {
+          console.error("Product not found");
+        }
       } catch (error) {
         console.error("Error fetching item data:", error);
       }

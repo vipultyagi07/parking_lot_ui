@@ -19,7 +19,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/BookTicket" element={<BookTicket />} />
-        <Route path="/products/:id" element={<ItemDetail />} />
+        {/* <Route path="/products/:id" element={<ItemDetail />} /> */}
+        <Route path="/products/:title" element={<ItemDetail />} />
         <Route path="/sendOtp" element={<SendOtp />} />
         <Route path="/VerifyOtp" element={<VerifyOtp />} />
         <Route path="/registration" element={<Registration />} />

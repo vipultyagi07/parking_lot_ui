@@ -114,8 +114,13 @@ function BookTicket() {
     arrows: true,
   };
 
-  const handleCardClick = (id) => {
-    navigate(`/products/${id}`);
+  // const handleCardClick = (id) => {
+  //   navigate(`/products/${id}`);
+  // };
+
+  const handleCardClick = (id, title) => {
+    const formattedTitle = title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    navigate(`/products/${formattedTitle}`);
   };
 
   return (
@@ -229,7 +234,7 @@ function BookTicket() {
           <section id="how-it-works">
             <h2>How It Works</h2>
             <Slider {...settings}>
-              {howItWorksData.map((products) => (
+              {/* {howItWorksData.map((products) => (
                 <div
                   key={products.id}
                   className="step"
@@ -239,6 +244,18 @@ function BookTicket() {
                   <h3>{products.title}</h3>
                   <p>Category: {products.category}</p>
                   <p>{products.description.slice(0, 100)}...</p>{" "}
+                </div>
+              ))} */}
+              {howItWorksData.map((product) => (
+                <div
+                  key={product.id}
+                  className="step"
+                  onClick={() => handleCardClick(product.id, product.title)}
+                >
+                  <img src={product.image} alt={product.title} />
+                  <h3>{product.title}</h3>
+                  <p>Category: {product.category}</p>
+                  <p>{product.description.slice(0, 100)}...</p>
                 </div>
               ))}
             </Slider>
