@@ -18,7 +18,7 @@ const RegistrationForm = ({
   handleRegisterSubmit,
 }) => (
   <div className="main1">
-    <h1>Parking Lot Registration</h1>
+    <h1>Dynamic Vehicle Destination Registration</h1>
     {error && <div style={{color:'red', margin: '10px'}}> {error} </div>}
     <h3>Enter your registration details</h3>
     <form onSubmit={handleRegisterSubmit}>

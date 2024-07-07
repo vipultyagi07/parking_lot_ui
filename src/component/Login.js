@@ -71,7 +71,7 @@ function Login() {
         ""
       ) : (
         <div className="main">
-          <h1>Parking Lot</h1>
+          <h1>Dynamic Vehicle Destination</h1>
           {error && <div style={{ color: "red", margin: "10px" }}>{error}</div>}
           <h3>Enter your login credentials</h3>
           <form onSubmit={handleSubmit}>
