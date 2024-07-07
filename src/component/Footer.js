@@ -1,8 +1,8 @@
-import React from 'react';
-import { ReactComponent as FacebookIcon } from './facebook.svg';
-import { ReactComponent as TwitterIcon } from './twitter.svg';
-import { ReactComponent as InstagramIcon } from './instagram.svg';
-import './Footer.css'; // Import your CSS file for footer styling
+import React from "react";
+import { ReactComponent as FacebookIcon } from "./facebook.svg";
+import { ReactComponent as TwitterIcon } from "./twitter.svg";
+import { ReactComponent as InstagramIcon } from "./instagram.svg";
+import "./Footer.css"; // Import your CSS file for footer styling
 
 function Footer() {
   return (
@@ -11,11 +11,21 @@ function Footer() {
         <div className="quick-links">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/pricing">Pricing</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/login">Login</a></li>
+            <li>
+              <a href="/home">Home</a>
+            </li>
+            <li>
+              <a href="/about">About</a>
+            </li>
+            <li>
+              <a href="/pricing">Pricing</a>
+            </li>
+            <li>
+              <a href="/contact">Contact</a>
+            </li>
+            <li>
+              <a href="/login">Login</a>
+            </li>
           </ul>
         </div>
         <div className="social-media">
@@ -42,10 +52,14 @@ function Footer() {
           </ul>
         </div>
         <div className="legal">
-          <p>© 2024 ParkingLotName. All Rights Reserved.</p>
+          <p>© 2024 Dynamic Vehicle Destination . All Rights Reserved.</p>
           <ul>
-            <li><a href="/">Privacy Policy</a></li>
-            <li><a href="/">Terms of Service</a></li>
+            <li>
+              <a href="/">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="/">Terms of Service</a>
+            </li>
           </ul>
         </div>
       </div>

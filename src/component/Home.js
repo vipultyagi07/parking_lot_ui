@@ -22,7 +22,7 @@ function Home() {
       <div>
         <section id="hero">
           <div className="hero-content">
-            <h1>Welcome to ParkingLotName</h1>
+            <h1>Welcome to Dynamic Vehicle Destination</h1>
             <p>Secure & Convenient Parking Solutions</p>
             <p>
               Easily manage and book parking spots for 2-wheelers and

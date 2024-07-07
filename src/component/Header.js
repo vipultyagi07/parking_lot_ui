@@ -1,5 +1,5 @@
-import React from 'react'
-import './Footer.css'
+import React from "react";
+import "./Footer.css";
 import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
@@ -20,16 +20,24 @@ function Header() {
   return (
     <div>
       <header>
-        <div className="logo">ParkingLotName</div>
+        <div className="logo">Dynamic Vehicle Destination</div>
         <nav>
           <ul>
-            <li><Link to="/Home">Home</Link></li>
-            <li><a href="#how-it-works">How it works</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            {username ? (
-              <li>Welcome, {username}!</li>
-            ) : null}
-            <li><button className="cta" onClick={handleLogout}>Logout</button></li>
+            <li>
+              <Link to="/Home">Home</Link>
+            </li>
+            <li>
+              <a href="#how-it-works">How it works</a>
+            </li>
+            <li>
+              <a href="#pricing">Pricing</a>
+            </li>
+            {username ? <li>Welcome, {username}!</li> : null}
+            <li>
+              <button className="cta" onClick={handleLogout}>
+                Logout
+              </button>
+            </li>
           </ul>
         </nav>
       </header>
