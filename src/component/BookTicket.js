@@ -5,8 +5,20 @@ import Header from "./Header";
 import { ReactComponent as Motorcycle } from "./twowheeler.svg";
 import { ReactComponent as Fourwheeler } from "./fourwheeler.svg";
 import { ReactComponent as Ticket } from "./ticket.svg";
+import { Link, useNavigate } from "react-router-dom";
 
 function BookTicket() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if token exists in localStorage
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // Redirect to login page if token doesn't exist
+      navigate("/");
+    }
+  }, [navigate]);
+
   const [twoWheelerData, setTwoWheelerData] = useState({
     totalSpot: 0,
     freeSpot: 0,
@@ -45,17 +57,23 @@ function BookTicket() {
       }
       if (error.response.data === 404) {
         setError(error.response.data.errorMessage);
-      } 
+      }
       console.error("Error generating ticket:", error);
       // Handle error (e.g., show an error message)
     }
   };
+  const token = localStorage.getItem("token"); // Get token from localStorage
 
   useEffect(() => {
     const fetchTwoWheelerData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8081/api/parking-spot/free/spot/TWO_WHEELER"
+          "http://localhost:8081/api/parking-spot/free/spot/TWO_WHEELER",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Set Authorization header with token
+            },
+          }
         );
         setTwoWheelerData(response.data);
       } catch (error) {
@@ -66,7 +84,12 @@ function BookTicket() {
     const fetchFourWheelerData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8081/api/parking-spot/free/spot/FOUR_WHEELER"
+          "http://localhost:8081/api/parking-spot/free/spot/FOUR_WHEELER",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Set Authorization header with token
+            },
+          }
         );
         setFourWheelerData(response.data);
       } catch (error) {

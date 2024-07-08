@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "../api/axios"; // Adjust the path as necessary
 import "../Css/Custom.css"; // Adjust the path as necessary
 
 function Login() {
@@ -29,40 +30,38 @@ function Login() {
     try {
       setLoading(true); // Start loading indicator
 
-      const response = await fetch("http://localhost:8081/api/users/sign/in", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
+      const response = await axios.post("/api/users/sign/in", requestData);
 
       setLoading(false); // Stop loading indicator
 
-      if (!response.ok) {
-        const errorData = await response.json();
-
-        if (errorData.errorCode === "INCORRECT_PASSWORD") {
-          setError(errorData.errorMessage);
-        } else if (errorData.errorCode === "USER_IS_NOT_PRESENT") {
-          setError(errorData.errorMessage);
-        } else {
-          setError("An unknown error occurred.");
-        }
-      } else {
-        const data = await response.json();
-        console.log(data);
-        setSuccess(true);
-        navigate("/Home");
-      }
+      // Handle successful login
+      console.log(response.data);
+      setSuccess(true);
+      localStorage.setItem("token", response.data.jwtToken);
+      localStorage.setItem("userId", response.data.userId);
+      localStorage.setItem("userName", response.data.userName);
+      navigate("/Home");
     } catch (error) {
       setLoading(false); // Stop loading indicator on error
 
-      console.error(
-        "There has been a problem with your fetch operation:",
-        error
-      );
-      setError("An error occurred during the fetch operation.");
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        if (error.response.status === 401) {
+          setError("Incorrect username or password.");
+        } else if (error.response.status === 404) {
+          setError("User not found. Please register.");
+        } else {
+          setError("An unknown error occurred.");
+        }
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("No response received:", error.request);
+        setError("No response received from the server.");
+      } else {
+        // Something happened in setting up the request that triggered an error
+        console.error("Error setting up the request:", error.message);
+        setError("Error setting up the request.");
+      }
     }
   };
 
@@ -72,10 +71,8 @@ function Login() {
         ""
       ) : (
         <div className="main">
-          <h1>Parking Lot</h1>
-          {error && (
-            <div style={{ color: "red", margin: "10px" }}> {error} </div>
-          )}
+          <h1>Dynamic Vehicle Destination</h1>
+          {error && <div style={{ color: "red", margin: "10px" }}>{error}</div>}
           <h3>Enter your login credentials</h3>
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">

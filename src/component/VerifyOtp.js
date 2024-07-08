@@ -60,7 +60,7 @@ function VerifyOtp() {
   return (
     <div className="main">
       <div className="otp-container">
-        <h1>Parking Lot</h1>
+        <h1>Dynamic Vehicle Destination</h1>
         {error && <div className="error-message">{error}</div>}
         {showBanner && (
           <div style={{ color: "green", margin: "10px" }}>

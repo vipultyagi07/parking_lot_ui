@@ -71,7 +71,7 @@ function SetNewPassword() {
 
   return (
     <div className="main">
-      <h1>Parking Lot</h1>
+      <h1>Dynamic Vehicle Destination</h1>
       {error && <div style={{ color: "red", margin: "10px" }}> {error} </div>}
       {showBanner && (
         <div style={{ color: "green", margin: "10px" }}>
