@@ -52,7 +52,7 @@ function Footer() {
           </ul>
         </div>
         <div className="legal">
-          <p>© 2024 Dynamic Vehicle Destination . All Rights Reserved.</p>
+          <p>© 2024 Dynamic Vehicle Destination. All Rights Reserved.</p>
           <ul>
             <li>
               <a href="/">Privacy Policy</a>
