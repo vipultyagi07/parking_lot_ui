@@ -18,6 +18,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### Step 4:  install other extensions 
   `npm install react-router-dom` in terminal
 
+### Step 5:  install other extensions 
+  `npm install react-bootstrap bootstrap` in terminal
+
 
 In the project directory, you can run:
 

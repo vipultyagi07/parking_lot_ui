@@ -40,7 +40,7 @@ function Login() {
       localStorage.setItem("token", response.data.jwtToken);
       localStorage.setItem("userId", response.data.userId);
       localStorage.setItem("userName", response.data.userName);
-      navigate("/Home");
+      navigate("/ticket-info");
     } catch (error) {
       setLoading(false); // Stop loading indicator on error
 
