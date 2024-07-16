@@ -5,6 +5,7 @@ import Header from "./Header";
 import { ReactComponent as Motorcycle } from "./twowheeler.svg";
 import { ReactComponent as Fourwheeler } from "./fourwheeler.svg";
 import { ReactComponent as Ticket } from "./ticket.svg";
+import { Modal, Button, Spinner } from "react-bootstrap"; // Import Spinner for loading indicator
 import { Link, useNavigate } from "react-router-dom";
 
 function BookTicket() {
@@ -28,12 +29,17 @@ function BookTicket() {
     freeSpot: 0,
   });
   const [error, setError] = useState("");
+  const [ticketDetails, setTicketDetails] = useState(null); // State to hold ticket details for modal display
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [isLoading, setIsLoading] = useState(false); // State to track loading status
 
   // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     const vehicleNumber = event.target.elements["vehicle-number"].value;
     const vehicleType = event.target.elements["vehicle-type"].value;
+
+    setIsLoading(true); // Start loading
 
     try {
       const response = await axios.post(
@@ -45,11 +51,15 @@ function BookTicket() {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Set Authorization header with token
           },
         }
       );
 
       console.log("Ticket generated:", response.data);
+      setTicketDetails(response.data); // Set ticket details to state
+      setShowModal(true); // Show the modal
+      setIsLoading(false); // Stop loading on success
       // You can handle the response here (e.g., show a success message)
     } catch (error) {
       if (error.response.data.errorCode === "PARKING_NOT_AVAILABLE") {
@@ -58,10 +68,15 @@ function BookTicket() {
       if (error.response.data === 404) {
         setError(error.response.data.errorMessage);
       }
+      if (error.response.data.errorCode === "VEHICLE_ALREADY_PARKED") {
+        setError(error.response.data.errorMessage);
+      }
       console.error("Error generating ticket:", error);
+      setIsLoading(false); // Stop loading on error
       // Handle error (e.g., show an error message)
     }
   };
+
   const token = localStorage.getItem("token"); // Get token from localStorage
 
   useEffect(() => {
@@ -101,6 +116,8 @@ function BookTicket() {
     fetchFourWheelerData();
   }, []);
 
+  const handleCloseModal = () => setShowModal(false);
+
   return (
     <div>
       <Header />
@@ -131,7 +148,7 @@ function BookTicket() {
                   <div style={{ color: "red", margin: "10px" }}> {error} </div>
                 )}
                 <form id="ticket-form" onSubmit={handleSubmit}>
-                  <label htmlFor="vehicle-type">Select Vehicle Type:</label>
+                  <label htmlFor="vehicle-type">Vehicle Type:</label>
                   <select id="vehicle-type" name="vehicle-type">
                     <option value="TWO_WHEELER">2 Wheeler</option>
                     <option value="FOUR_WHEELER">4 Wheeler</option>
@@ -141,9 +158,21 @@ function BookTicket() {
                     type="text"
                     id="vehicle-number"
                     name="vehicle-number"
+                    required
                   />
-                  <button type="submit" className="cta">
-                    Proceed
+                  <button type="submit" className="cta" disabled={isLoading}>
+                    {isLoading ? (
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        style={{ marginRight: "5px" }}
+                      />
+                    ) : (
+                      "Proceed"
+                    )}
                   </button>
                 </form>
               </div>
@@ -166,16 +195,22 @@ function BookTicket() {
             <h2>Ticket Information</h2>
             <div className="ticket-info-container">
               <div className="card">
-                <h3>Live Ticket See</h3>
-                <p>Total Live Tickets: 100</p>
                 <br />
-                <button className="cta">View</button>
+                <h3>Total Tickets</h3>
+                <br />
+                <br />
+                <button
+                  className="cta"
+                  onClick={() => navigate("/ticket-info")}
+                >
+                  View
+                </button>{" "}
               </div>
-              <div className="card">
+              {/* <div className="card">
                 <h3>Total Generated Tickets</h3>
                 <p>Total Tickets: 100</p>
                 <button className="cta">View</button>
-              </div>
+              </div> */}
               <div className="card">
                 <h3>Payment Info</h3>
                 <p>Total Revenue: $5000</p>
@@ -234,6 +269,40 @@ function BookTicket() {
           </section>
         </div>
       </div>
+
+      {/* Modal for displaying ticket details */}
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Ticket Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {ticketDetails && (
+            <div>
+              <p>Ticket ID: {ticketDetails.parkingTicketId}</p>
+              <p>Vehicle Number: {ticketDetails.vehicleNumber}</p>
+              <p>
+                Entry Time: {new Date(ticketDetails.entryTime).toLocaleString()}
+              </p>
+              <p>Parking Space ID: {ticketDetails.parkingSpaceId}</p>
+              <p>Vehicle Type: {ticketDetails.vehicleType}</p>
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            style={{
+              backgroundColor: "coral",
+              color: "white",
+              border: "none",
+            }}
+            onClick={() => window.print()}
+          >
+            Print
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <Footer />
     </div>
   );
