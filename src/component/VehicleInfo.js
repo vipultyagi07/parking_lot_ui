@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -7,35 +6,40 @@ import Header from "./Header";
 function VehicleInfo() {
   const [vehicles, setVehicles] = useState([]);
 
-
   useEffect(() => {
-    const fetchData = async () => {
-      const token = localStorage.getItem("token"); // Retrieve the JWT token from local storage
-      if (!token) {
-        alert("Unauthorized");
-        return;
-      }
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Unauthorized");
+      return;
+    }
 
+    const socket = new WebSocket(`ws://localhost:8081/vehicle-updates?token=${token}`);
+
+    socket.onopen = () => {
+      console.log("WebSocket connection established.");
+    };
+
+    socket.onmessage = (event) => {
       try {
-        const response = await axios.get(
-          `http://localhost:8081/api/vehicle/get/all`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        setVehicles(response.data); // Assuming the API returns an array of vehicles
+        const data = JSON.parse(event.data);
+        setVehicles(data); // Replace the entire list of vehicles
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error parsing WebSocket message:", error);
       }
     };
 
-    fetchData();
-  }, );
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
 
+    socket.onclose = () => {
+      console.log("WebSocket connection closed.");
+    };
 
+    return () => {
+      socket.close(); // Clean up WebSocket connection on component unmount
+    };
+  }, []);
 
   return (
     <div>
@@ -57,18 +61,13 @@ function VehicleInfo() {
                     </tr>
                   </thead>
                   <tbody id="ticket-list">
-                    {vehicles
-                      .filter((vehicle) =>
-                        vehicle.vehicleNo
-                          .toLowerCase()
-                      )
-                      .map((vehicle) => (
-                        <tr className="align-middle" key={vehicle.id}>
-                          <td>{vehicle.id}</td>
-                          <td>{vehicle.vehicleNo}</td>
-                          <td>{vehicle.vehicleType}</td>
-                        </tr>
-                      ))}
+                    {vehicles.map((vehicle) => (
+                      <tr className="align-middle" key={vehicle.id}>
+                        <td>{vehicle.id}</td>
+                        <td>{vehicle.vehicleNo}</td>
+                        <td>{vehicle.vehicleType}</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -77,7 +76,6 @@ function VehicleInfo() {
         </div>
       </div>
       <Footer />
-
     </div>
   );
 }
