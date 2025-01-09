@@ -13,6 +13,7 @@ import SendOtp from "./component/SendOtp";
 import VerifyOtp from "./component/VerifyOtp";
 import SetNewPassword from "./component/SetNewPassword";
 import TicketInfo from "./component/TicketInfo";
+import VehicleInfo from "./component/VehicleInfo";
 
 function App() {
   return (
@@ -24,8 +25,9 @@ function App() {
         <Route path="/BookTicket" element={<BookTicket />} />
         <Route path="/sendOtp" element={<SendOtp />} />
         <Route path="/VerifyOtp" element={<VerifyOtp />} />
-        <Route path="/registration" element={<Registration />} />
+        <Route path="/registration" element={<Registration />} /> 
         <Route path="/ticket-info" element={<TicketInfo />} />
+        <Route path="/vehicle-info" element={<VehicleInfo />} />  
         <Route path="/setNewPassword" element={<SetNewPassword />} />
       </Routes>
     </BrowserRouter>

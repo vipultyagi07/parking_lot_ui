@@ -206,6 +206,18 @@ function BookTicket() {
                   View
                 </button>{" "}
               </div>
+              <div className="card">
+                <br />
+                <h3>Vehicles Detail</h3>
+                <br />
+                <br />
+                <button
+                  className="cta"
+                  onClick={() => navigate("/vehicle-info")}
+                >
+                  View
+                </button>{" "}
+              </div>
               {/* <div className="card">
                 <h3>Total Generated Tickets</h3>
                 <p>Total Tickets: 100</p>
